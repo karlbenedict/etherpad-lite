@@ -27,11 +27,12 @@ RUN useradd --uid 5001 --create-home etherpad
 
 RUN mkdir /opt/etherpad-lite && chown etherpad:etherpad /opt/etherpad-lite
 
-USER etherpad:etherpad
+USER root
 
 WORKDIR /opt/etherpad-lite
 
-COPY --chown=etherpad:etherpad ./ ./
+COPY ./ ./
+RUN chown -R etherpad:etherpad  ./
 
 # install node dependencies for Etherpad
 RUN bin/installDeps.sh && \
@@ -45,7 +46,11 @@ RUN npm install sqlite3
 RUN for PLUGIN_NAME in ${ETHERPAD_PLUGINS}; do npm install "${PLUGIN_NAME}"; done
 
 # Copy the configuration file.
-COPY --chown=etherpad:etherpad ./settings.json.docker /opt/etherpad-lite/settings.json
+COPY ./settings.json.docker /opt/etherpad-lite/settings.json
+RUN chown -R etherpad:etherpad /opt/etherpad-lite/settings.json
+
+USER etherpad:etherpad
+
 #RUN npm audit fix
 EXPOSE 9001
 CMD ["node", "node_modules/ep_etherpad-lite/node/server.js"]
