@@ -138,15 +138,9 @@
    * https://www.npmjs.com/package/ueberdb2
    */
 
-  "dbType": "${DB_TYPE:dirty}",
+  "dbType": "sqlite",
   "dbSettings": {
-    "host":     "${DB_HOST}",
-    "port":     "${DB_PORT}",
-    "database": "${DB_NAME}",
-    "user":     "${DB_USER}",
-    "password": "${DB_PASS}",
-    "charset":  "${DB_CHARSET}",
-    "filename": "${DB_FILENAME:var/dirty.db}"
+    "filename": "ether.sqlite"
   },
 
   /*
@@ -164,7 +158,7 @@
     "showControls":     true,
     "showChat":         true,
     "showLineNumbers":  true,
-    "useMonospaceFont": false,
+    "useMonospaceFont": true,
     "userName":         false,
     "userColor":        false,
     "rtl":              false,
